@@ -1,0 +1,5 @@
+# Credits & Provenance
+
+- **Audio**: `assets/song.mp3` — User-provided song audio (*Pal Pal*, 20.0s excerpt).
+- **Typography**: `Poppins` (ExtraBold 800, SemiBold 600) — Google Fonts, SIL Open Font License 1.1.
+- **Visual Engine & Character Rigging**: Hand-authored 2D HTML5 Canvas cut-paper engine (`spy-engine.js`) in the Lemo-Opuscar `spy-titles` (60s Spy Title Sequence) style. Zero external raster/stock images used.

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0" />
+  <title>Pal-Pal — 60s Spy Title Sequence Lyric Video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script src="spy-engine.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1080px; height: 1920px; overflow: hidden;
+      background: #1b1714; font-family: 'Poppins', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    #root {
+      position: relative; width: 1080px; height: 1920px;
+      overflow: hidden; isolation: isolate; background-color: #1b1714;
+    }
+    #spy-stage {
+      position: absolute; inset: 0; width: 1080px; height: 1920px;
+      overflow: hidden; z-index: 1; background-color: #1b1714;
+    }
+    #spy-canvas {
+      position: absolute; inset: 0; width: 1080px; height: 1920px;
+      display: block; pointer-events: none;
+    }
+    #lyric-stage {
+      position: absolute; inset: 0; width: 1080px; height: 1920px;
+      pointer-events: none; z-index: 20;
+    }
+    .word-clip {
+      position: absolute; left: 0; top: 0; width: 1080px; height: 1920px;
+      display: flex; align-items: center; justify-content: center; pointer-events: none;
+    }
+    .word-inner {
+      display: inline-block; font-family: 'Poppins', sans-serif; font-weight: 800;
+      text-transform: lowercase; letter-spacing: -0.055em; line-height: 1.0;
+      color: #efe4c9; text-align: center; white-space: nowrap; padding: 0 24px;
+      text-shadow: 4px 5px 0px #120b06;
+      will-change: transform, opacity;
+    }
+    .size-xl { font-size: 208px; }
+    .size-lg { font-size: 174px; }
+    .size-md { font-size: 146px; }
+    .size-sm { font-size: 122px; }
+
+    #grain-stage {
+      position: absolute; inset: 0; width: 1080px; height: 1920px;
+      overflow: hidden; pointer-events: none; z-index: 40; mix-blend-mode: multiply;
+    }
+    #grain-wrap {
+      position: absolute; left: -120px; top: -120px; width: 1320px; height: 2160px; opacity: 0.18;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920" data-fps="30">
+    <audio id="song-audio" class="clip" src="assets/song.mp3" data-start="0" data-duration="20" data-track-index="0" data-volume="1"></audio>
+    <div id="spy-stage">
+      <canvas id="spy-canvas" width="1080" height="1920" data-layout-allow-overflow></canvas>
+    </div>
+    <div id="lyric-stage" data-layout-allow-occlusion>
+      <div id="word-0" class="clip word-clip" data-start="1.70" data-duration="0.34" data-track-index="1"><span class="word-inner size-xl" id="wi-0" data-layout-allow-occlusion>pal</span></div>
+      <div id="word-1" class="clip word-clip" data-start="2.04" data-duration="0.60" data-track-index="1"><span class="word-inner size-xl" id="wi-1" data-layout-allow-occlusion>pal</span></div>
+      <div id="word-2" class="clip word-clip" data-start="2.64" data-duration="0.80" data-track-index="1"><span class="word-inner size-lg" id="wi-2" data-layout-allow-occlusion>jeena</span></div>
+      <div id="word-3" class="clip word-clip" data-start="3.44" data-duration="1.20" data-track-index="2"><span class="word-inner size-md" id="wi-3" data-layout-allow-occlusion>muhaal</span></div>
+      <div id="word-4" class="clip word-clip" data-start="4.64" data-duration="0.56" data-track-index="2"><span class="word-inner size-lg" id="wi-4" data-layout-allow-occlusion>mera</span></div>
+      <div id="word-5" class="clip word-clip" data-start="5.20" data-duration="0.48" data-track-index="2"><span class="word-inner size-lg" id="wi-5" data-layout-allow-occlusion>tere</span></div>
+      <div id="word-6" class="clip word-clip" data-start="5.68" data-duration="0.58" data-track-index="3"><span class="word-inner size-lg" id="wi-6" data-layout-allow-occlusion>bina</span></div>
+      <div id="word-7" class="clip word-clip" data-start="6.36" data-duration="0.52" data-track-index="3"><span class="word-inner size-xl" id="wi-7" data-layout-allow-occlusion>yeh</span></div>
+      <div id="word-8" class="clip word-clip" data-start="6.88" data-duration="0.34" data-track-index="3"><span class="word-inner size-md" id="wi-8" data-layout-allow-occlusion>saaray</span></div>
+      <div id="word-9" class="clip word-clip" data-start="7.22" data-duration="0.52" data-track-index="4"><span class="word-inner size-md" id="wi-9" data-layout-allow-occlusion>nashay</span></div>
+      <div id="word-10" class="clip word-clip" data-start="7.74" data-duration="0.78" data-track-index="4"><span class="word-inner size-md" id="wi-10" data-layout-allow-occlusion>bekaar</span></div>
+      <div id="word-11" class="clip word-clip" data-start="8.60" data-duration="0.60" data-track-index="4"><span class="word-inner size-lg" id="wi-11" data-layout-allow-occlusion>teri</span></div>
+      <div id="word-12" class="clip word-clip" data-start="9.20" data-duration="0.54" data-track-index="5"><span class="word-inner size-md" id="wi-12" data-layout-allow-occlusion>aankhon</span></div>
+      <div id="word-13" class="clip word-clip" data-start="9.74" data-duration="0.30" data-track-index="5"><span class="word-inner size-xl" id="wi-13" data-layout-allow-occlusion>ke</span></div>
+      <div id="word-14" class="clip word-clip" data-start="10.04" data-duration="0.70" data-track-index="5"><span class="word-inner size-lg" id="wi-14" data-layout-allow-occlusion>siwa</span></div>
+      <div id="word-15" class="clip word-clip" data-start="10.84" data-duration="0.34" data-track-index="6"><span class="word-inner size-lg" id="wi-15" data-layout-allow-occlusion>ghar</span></div>
+      <div id="word-16" class="clip word-clip" data-start="11.18" data-duration="0.42" data-track-index="6"><span class="word-inner size-lg" id="wi-16" data-layout-allow-occlusion>nahi</span></div>
+      <div id="word-17" class="clip word-clip" data-start="11.60" data-duration="0.52" data-track-index="6"><span class="word-inner size-lg" id="wi-17" data-layout-allow-occlusion>jaata</span></div>
+      <div id="word-18" class="clip word-clip" data-start="12.12" data-duration="0.48" data-track-index="7"><span class="word-inner size-lg" id="wi-18" data-layout-allow-occlusion>mein</span></div>
+      <div id="word-19" class="clip word-clip" data-start="12.60" data-duration="0.44" data-track-index="7"><span class="word-inner size-lg" id="wi-19" data-layout-allow-occlusion>bahar</span></div>
+      <div id="word-20" class="clip word-clip" data-start="13.12" data-duration="0.66" data-track-index="7"><span class="word-inner size-lg" id="wi-20" data-layout-allow-occlusion>rehta</span></div>
+      <div id="word-21" class="clip word-clip" data-start="13.78" data-duration="0.66" data-track-index="8"><span class="word-inner size-lg" id="wi-21" data-layout-allow-occlusion>tera</span></div>
+      <div id="word-22" class="clip word-clip" data-start="14.44" data-duration="0.78" data-track-index="8"><span class="word-inner size-sm" id="wi-22" data-layout-allow-occlusion>intezaar</span></div>
+      <div id="word-23" class="clip word-clip" data-start="15.32" data-duration="0.38" data-track-index="8"><span class="word-inner size-lg" id="wi-23" data-layout-allow-occlusion>mere</span></div>
+      <div id="word-24" class="clip word-clip" data-start="15.70" data-duration="0.54" data-track-index="9"><span class="word-inner size-sm" id="wi-24" data-layout-allow-occlusion>khuwabon</span></div>
+      <div id="word-25" class="clip word-clip" data-start="16.24" data-duration="0.36" data-track-index="9"><span class="word-inner size-lg" id="wi-25" data-layout-allow-occlusion>main</span></div>
+      <div id="word-26" class="clip word-clip" data-start="16.60" data-duration="0.32" data-track-index="9"><span class="word-inner size-xl" id="wi-26" data-layout-allow-occlusion>aa</span></div>
+      <div id="word-27" class="clip word-clip" data-start="16.92" data-duration="0.60" data-track-index="10"><span class="word-inner size-xl" id="wi-27" data-layout-allow-occlusion>naa</span></div>
+      <div id="word-28" class="clip word-clip" data-start="17.60" data-duration="0.24" data-track-index="10"><span class="word-inner size-xl" id="wi-28" data-layout-allow-occlusion>kar</span></div>
+      <div id="word-29" class="clip word-clip" data-start="17.84" data-duration="0.34" data-track-index="10"><span class="word-inner size-xl" id="wi-29" data-layout-allow-occlusion>ke</span></div>
+      <div id="word-30" class="clip word-clip" data-start="18.18" data-duration="0.44" data-track-index="11"><span class="word-inner size-lg" id="wi-30" data-layout-allow-occlusion>solah</span></div>
+      <div id="word-31" class="clip word-clip" data-start="18.62" data-duration="0.98" data-track-index="11"><span class="word-inner size-sm" id="wi-31" data-layout-allow-occlusion>singhaar</span></div>
+    </div>
+    <div id="grain-stage"><div id="grain-wrap" data-layout-allow-overflow></div></div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const words = [
+      ['wi-0',1.70,0.34,'pal',1], ['wi-1',2.04,0.60,'pal',1], ['wi-2',2.64,0.80,'jeena',1], ['wi-3',3.44,1.20,'muhaal',1],
+      ['wi-4',4.64,0.56,'mera',1], ['wi-5',5.20,0.48,'tere',1], ['wi-6',5.68,0.58,'bina',1],
+      ['wi-7',6.36,0.52,'yeh',2], ['wi-8',6.88,0.34,'saaray',2], ['wi-9',7.22,0.52,'nashay',2], ['wi-10',7.74,0.78,'bekaar',2],
+      ['wi-11',8.60,0.60,'teri',3],['wi-12',9.20,0.54,'aankhon',3],['wi-13',9.74,0.30,'ke',3],['wi-14',10.04,0.70,'siwa',3],
+      ['wi-15',10.84,0.34,'ghar',4],['wi-16',11.18,0.42,'nahi',4],['wi-17',11.60,0.52,'jaata',4],['wi-18',12.12,0.48,'mein',4],['wi-19',12.60,0.44,'bahar',4],
+      ['wi-20',13.12,0.66,'rehta',5],['wi-21',13.78,0.66,'tera',5],['wi-22',14.44,0.78,'intezaar',5],
+      ['wi-23',15.32,0.38,'mere',6],['wi-24',15.70,0.54,'khuwabon',6],['wi-25',16.24,0.36,'main',6],['wi-26',16.60,0.32,'aa',6],['wi-27',16.92,0.60,'naa',6],
+      ['wi-28',17.60,0.24,'kar',7],['wi-29',17.84,0.34,'ke',7],['wi-30',18.18,0.44,'solah',7],['wi-31',18.62,0.98,'singhaar',7]
+    ];
+
+    window.SpyEngine.init(document.getElementById('spy-canvas'));
+    const tl = gsap.timeline({ paused: true });
+    const playhead = { t: 0 };
+    window.SpyEngine.renderAt(0, words);
+    tl.to(playhead, {
+      t: 20, duration: 20, ease: 'none',
+      onUpdate: () => window.SpyEngine.renderAt(playhead.t, words)
+    }, 0);
+
+    const grainEl = document.getElementById('grain-wrap');
+    const gOff = [[0,0],[-48,-32],[36,-64],[-72,44],[52,28],[-28,68],[64,-44],[-56,-56]];
+    for (let t = 0; t < 20.0; t += 0.083) {
+      const g = gOff[Math.floor(t * 12) % gOff.length];
+      tl.set(grainEl, { x: g[0], y: g[1] }, t);
+    }
+
+    words.forEach(([id, start, dur], i) => {
+      const el = document.getElementById(id);
+      const end = +(start + dur).toFixed(3);
+      const inDur = Math.min(0.08, dur * 0.28);
+      const outDur = Math.min(0.05, dur * 0.20);
+      const tilt = (i % 2 === 0 ? -1 : 1) * (1.2 + (i % 3) * 0.6);
+      tl.set(el, { opacity: 0, scale: 1.20, rotation: tilt * 2, y: 14 }, 0);
+      tl.fromTo(el,
+        { opacity: 0, scale: 1.20, rotation: tilt * 2, y: 14 },
+        { opacity: 1, scale: 1.0, rotation: tilt, y: 0, duration: inDur, ease: 'expo.out', immediateRender: false },
+        start
+      );
+      tl.to(el, { opacity: 0, scale: 0.92, y: -8, duration: outDur, ease: 'power2.in' }, end - outDur);
+      tl.set(el, { opacity: 0 }, end);
+    });
+
+    window.__timelines['main'] = tl;
+  </script>
+</body>
+</html>
