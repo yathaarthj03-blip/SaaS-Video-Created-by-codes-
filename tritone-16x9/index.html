@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0" />
+  <title>Pal Pal — 16:9 Orange · Yellow Tint · Baby Pink Illustrated Lyric Video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #180605;
+      font-family: 'Poppins', sans-serif;
+    }
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #180605;
+    }
+    #stage-canvas {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      display: block;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div
+    id="root"
+    data-composition-id="main"
+    data-start="0"
+    data-duration="20"
+    data-width="1920"
+    data-height="1080"
+    data-fps="30"
+  >
+    <audio id="song-audio" src="assets/song.mp3" data-start="0" data-duration="20" data-track-index="0"></audio>
+    <span style="font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1px; color: #180605; position: absolute; left: 0; top: 0; pointer-events: none;">.</span>
+    <canvas id="stage-canvas" width="1920" height="1080" data-layout-allow-overflow="true"></canvas>
+  </div>
+
+  <script src="tritone-engine.js"></script>
+  <script>
+    (function () {
+      const canvas = document.getElementById('stage-canvas');
+      const ctx = canvas.getContext('2d');
+
+      const WORDS = [
+        { word: 'pal', start: 1.70, end: 2.18, line: 1 },
+        { word: 'pal', start: 2.18, end: 2.80, line: 1 },
+        { word: 'jeena', start: 2.80, end: 3.80, line: 1 },
+        { word: 'muhaal', start: 3.80, end: 4.70, line: 1 },
+        { word: 'mera', start: 4.70, end: 5.16, line: 1 },
+        { word: 'tere', start: 5.16, end: 5.48, line: 1 },
+        { word: 'bina', start: 5.48, end: 6.26, line: 1 },
+
+        { word: 'yeh', start: 6.36, end: 6.64, line: 2 },
+        { word: 'saaray', start: 6.64, end: 7.18, line: 2 },
+        { word: 'nashay', start: 7.18, end: 7.64, line: 2 },
+        { word: 'bekaar', start: 7.64, end: 8.52, line: 2 },
+
+        { word: 'teri', start: 8.60, end: 9.04, line: 3 },
+        { word: 'aankhon', start: 9.04, end: 9.74, line: 3 },
+        { word: 'ke', start: 9.74, end: 9.98, line: 3 },
+        { word: 'siwa', start: 9.98, end: 10.74, line: 3 },
+
+        { word: 'ghar', start: 10.84, end: 11.20, line: 4 },
+        { word: 'nahi', start: 11.20, end: 11.48, line: 4 },
+        { word: 'jaata', start: 11.48, end: 12.02, line: 4 },
+        { word: 'mein', start: 12.02, end: 12.28, line: 4 },
+        { word: 'bahar', start: 12.28, end: 13.04, line: 4 },
+
+        { word: 'rehta', start: 13.12, end: 13.70, line: 5 },
+        { word: 'tera', start: 13.70, end: 14.16, line: 5 },
+        { word: 'intezaar', start: 14.16, end: 15.22, line: 5 },
+
+        { word: 'mere', start: 15.32, end: 15.66, line: 6 },
+        { word: 'khuwabon', start: 15.66, end: 16.44, line: 6 },
+        { word: 'main', start: 16.44, end: 16.72, line: 6 },
+        { word: 'aa', start: 16.72, end: 16.92, line: 6 },
+        { word: 'naa', start: 16.92, end: 17.52, line: 6 },
+
+        { word: 'kar', start: 17.60, end: 17.88, line: 7 },
+        { word: 'ke', start: 17.88, end: 18.14, line: 7 },
+        { word: 'solah', start: 18.14, end: 18.88, line: 7 },
+        { word: 'singhaar', start: 18.88, end: 20.00, line: 7 }
+      ];
+
+      function getActiveWord(t) {
+        for (let i = 0; i < WORDS.length; i++) {
+          if (t >= WORDS[i].start && t < WORDS[i].end) return WORDS[i];
+        }
+        return null;
+      }
+
+      const state = { t: 0 };
+      const tl = gsap.timeline({ paused: true });
+      tl.to(state, {
+        t: 20,
+        duration: 20,
+        ease: 'none',
+        onUpdate: function () {
+          if (window.renderTritoneFrame) {
+            window.renderTritoneFrame(ctx, state.t, getActiveWord(state.t));
+          }
+        }
+      }, 0);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['main'] = tl;
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          window.renderTritoneFrame(ctx, 0, null);
+        });
+      } else {
+        window.renderTritoneFrame(ctx, 0, null);
+      }
+    })();
+  </script>
+</body>
+</html>
